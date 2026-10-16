@@ -1,739 +1,705 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MORA - Heritage Handcrafted</title>
-    
-    <style>
-        /* ================================================================
-           1. COLORS & ROOT VARIABLES (LIGHT MODE)
-        ================================================================= */
-        :root {
-          --bg: #FAF8F5;
-          --bg-soft: #FFFFFF;
-          --text: #1A1A1A;
-          --text-soft: #444444;
-          --text-mute: rgba(0,0,0,0.5);
-          --accent: #00C853;
-          --accent-soft: rgba(0, 200, 83, 0.1);
-          --accent-2: #0040FF;
-          --accent-2-soft: rgba(0, 64, 255, 0.1);
-          --line: rgba(0,0,0,0.1);
-          --line-soft: rgba(0,0,0,0.05);
-          --ease-quiet: cubic-bezier(.22,1,.36,1);
-          --ease-precise: cubic-bezier(.4,0,.2,1);
-          --ease-emphasis: cubic-bezier(.16,1,.3,1);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Rakesh Mohan — Art Director, Mumbai</title>
+<meta name="description" content="Portfolio of Rakesh Mohan, Mumbai-based Art Director. Brand identity, art direction, editorial design.">
+<meta name="author" content="Rakesh Mohan">
+<meta name="theme-color" content="#0c0b0a">
 
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&display=swap');
+<!-- Poppins (only family loaded) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+<!-- Favicon: MORA mark -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%230057FF'/%3E%3Ccircle cx='16' cy='22' r='6' fill='%233FE000'/%3E%3C/svg%3E">
 
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 300;
-            line-height: 1.75;
-            letter-spacing: 0.03em;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-        }
+<style>
+:root{
+  --blue:#0057FF;
+  --green:#3FE000;
+  --ink:#0c0b0a;
+  --paper:#f4f1ec;
+  --soft:#3a3835;
+  --gray:#8a8580;
+  --rule:rgba(0,0,0,.12);
+  --rule-dark:rgba(255,255,255,.12);
+  --ease:cubic-bezier(.22,1,.36,1);
+}
 
-        h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text); font-weight: 500; line-height: 1.3; }
-        a { text-decoration: none; color: inherit; }
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Poppins',system-ui,-apple-system,sans-serif;
+  font-weight:300;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.5;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;background:none;border:none;cursor:pointer;color:inherit}
 
-        .eyebrow {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 600;
-            font-size: 13px;
-            color: var(--accent);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.85rem;
-            margin-bottom: 1.5rem;
-        }
-        .eyebrow::after { display: none; }
+/* ===== Mark (MORA logo) ===== */
+.mark{display:inline-block;width:100%;height:100%}
+.mark svg{width:100%;height:100%;display:block}
 
-        .add-to-order { 
-            width: 100%; padding: 1.5rem; background: var(--accent); color: #ffffff; 
-            font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 14px; cursor: pointer; 
-            transition: background 400ms var(--ease-quiet), color 400ms var(--ease-quiet); 
-            display: flex; align-items: center; justify-content: center; gap: 0.85rem; text-decoration: none; border: none;
-        }
-        .add-to-order:hover { background: var(--accent-2); color: #ffffff; }
+/* ===== Loader ===== */
+.loader{
+  position:fixed;inset:0;background:var(--ink);z-index:9999;
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity .8s var(--ease),visibility .8s var(--ease);
+}
+.loader.done{opacity:0;visibility:hidden}
+.loader .mark{width:56px;height:56px;animation:spin 4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-        .featured-header-link, .contact-cta, .hero-btn {
-            display: inline-flex; align-items: center; gap: 10px; background: transparent; border: none; color: var(--text);
-            font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px; cursor: pointer; text-decoration: none;
-            position: relative; padding-bottom: 10px; transition: color 400ms var(--ease-quiet);
-        }
-        .featured-header-link::after, .contact-cta::after, .hero-btn::after {
-            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: var(--accent); transition: background 400ms var(--ease-quiet);
-        }
-        .featured-header-link:hover, .contact-cta:hover, .hero-btn:hover { color: var(--accent-2); }
-        .featured-header-link:hover::after, .contact-cta:hover::after, .hero-btn:hover::after { background: var(--accent-2); }
-        .featured-header-link svg, .contact-cta svg, .hero-btn svg { width: 16px; height: 16px; stroke: currentColor; }
-        .hero-btn { color: #ffffff; }
-        .hero-btn:hover { color: var(--accent); }
+/* ===== Header (solid black bar) ===== */
+.site-head{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:var(--ink);
+  color:#fff;
+  padding:1.15rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  box-shadow:0 1px 0 var(--rule-dark);
+}
+.site-head .brand{display:flex;align-items:center;gap:.6rem}
+.site-head .mark{width:26px;height:26px}
+.brand-name{font-size:.7rem;letter-spacing:.25em;font-weight:500;text-transform:uppercase}
+.site-head nav{display:flex;gap:2.25rem}
+.site-head nav a{
+  font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;font-weight:400;
+  position:relative;padding:.25rem 0;
+  transition:opacity .3s var(--ease);
+}
+.site-head nav a::after{
+  content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:#fff;
+  transition:width .4s var(--ease);
+}
+.site-head nav a:hover::after{width:100%}
 
-        .back-btn {
-            display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px;
-            border: 1px solid var(--accent-2); border-radius: 50%; margin-right: 1rem; background: var(--accent-2-soft);
-            transition: border-color 400ms var(--ease-quiet), background 400ms var(--ease-quiet); text-decoration: none; cursor: pointer; flex-shrink: 0;
-        }
-        .back-btn:hover { border-color: var(--accent); background: var(--accent-soft); }
-        .back-btn svg { width: 16px; height: 16px; stroke: var(--text-soft); }
+/* ===== Hero (text-free, video + scroll line only) ===== */
+.hero{
+  position:relative;height:100vh;min-height:600px;overflow:hidden;background:#000;
+}
+.hero video{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  animation:kenburns 22s ease-in-out infinite alternate;
+}
+@keyframes kenburns{
+  0%{transform:scale(1.06) translate(0,0)}
+  100%{transform:scale(1.16) translate(-1.5%,-1%)}
+}
+.hero::after{
+  content:'';position:absolute;inset:0;background:rgba(0,0,0,.18);pointer-events:none;
+}
+.scroll-line{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  width:1px;height:64px;background:rgba(255,255,255,.18);overflow:hidden;
+  z-index:5;
+  opacity:0;animation:fadeIn 1s var(--ease) 1.6s forwards;
+}
+.scroll-line::after{
+  content:'';position:absolute;top:0;left:0;width:100%;height:32%;
+  background:#fff;animation:fall 2.2s var(--ease) infinite;
+}
+@keyframes fall{0%{transform:translateY(-100%)}100%{transform:translateY(300%)}}
+@keyframes fadeIn{to{opacity:1}}
 
-        header {
-            display: flex; justify-content: space-between; align-items: center; padding: 24px 50px;
-            background: rgba(250, 248, 245, 0.85); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); gap: 20px;
-        }
-        
-        .logo { cursor: pointer; flex-shrink: 0; display: flex; align-items: center; }
-        .logo svg { height: 20px; width: auto; display: block; }
+/* ===== Section base ===== */
+section{padding:8rem 2rem;position:relative}
+.container{max-width:1400px;margin:0 auto}
+.narrow{max-width:480px;margin:0 auto;text-align:center}
 
-        #mainNav { flex-grow: 1; display: flex; justify-content: center; }
-        #mainNav ul { display: flex; gap: 40px; list-style: none; }
-        nav a, .filter-btn {
-            background: transparent; border: none; font-size: 13px; font-weight: 500; color: var(--text-soft); 
-            transition: color 300ms var(--ease-quiet); cursor: pointer; position: relative; padding-bottom: 5px; font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-        nav a::after, .filter-btn::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--accent-2); transition: width 300ms var(--ease-quiet); }
-        nav a:hover, .filter-btn:hover { color: var(--accent-2); }
-        nav a:hover::after, .filter-btn:hover::after { width: 100%; }
-        nav a.active, .filter-btn.active { color: var(--accent-2); }
-        nav a.active::after, .filter-btn.active::after { width: 100%; }
+.comp-label{
+  font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;
+  font-weight:500;color:var(--gray);
+  display:inline-block;padding-bottom:.6rem;
+  border-bottom:1px solid var(--rule);
+  margin-bottom:2rem;
+}
+.comp-heading{
+  font-size:clamp(26px,2.6vw,40px);
+  font-weight:500;
+  line-height:1.2;
+  letter-spacing:-.01em;
+  margin-bottom:3rem;
+}
 
-        /* Ad Banner Styles - Seamless Loop */
-        .ad-banner {
-            background-color: var(--accent-2);
-            color: rgba(255, 255, 255, 0.9); /* 90% opacity white text */
-            overflow: hidden;
-            padding: 8px 0;
-            font-size: 13px;
-            font-weight: 400; /* Regular font weight */
-            letter-spacing: 0.5px;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-        }
-        .ad-track {
-            display: flex;
-            width: max-content;
-            animation: ad-marquee 25s linear infinite;
-        }
-        .ad-group {
-            display: flex;
-            flex-shrink: 0;
-        }
-        .ad-group span {
-            padding: 0 20px;
-            display: inline-block;
-            white-space: nowrap;
-        }
-        @keyframes ad-marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
+/* ===== About (no outline; hover reveals pic + text) ===== */
+.about{background:var(--paper);text-align:center;padding-top:10rem}
+.about-panel{
+  max-width:760px;margin:0 auto;cursor:default;
+  position:relative;
+  min-height:140px;
+  transition:all .6s var(--ease);
+}
+.about-collapsed{
+  font-size:clamp(26px,2.8vw,44px);font-weight:500;line-height:1.25;
+  transition:opacity .4s var(--ease);
+}
+.about-collapsed .hint{
+  display:block;font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--gray);font-weight:400;margin-top:1.75rem;
+}
+.about-expanded{
+  position:absolute;inset:0;
+  opacity:0;pointer-events:none;
+  transition:opacity .5s var(--ease);
+}
+.about-panel:hover .about-collapsed{opacity:0}
+.about-panel:hover .about-expanded{opacity:1;pointer-events:auto}
 
-        .menu-toggle {
-            display: none; background: transparent; border: none; cursor: pointer; padding: 5px;
-            color: var(--text); flex-shrink: 0; align-items: center; justify-content: center;
-        }
-        
-        .mobile-menu {
-            position: fixed; top: 0; right: -280px; width: 280px; height: 100vh; background: var(--bg-soft);
-            box-shadow: -2px 0 15px rgba(0,0,0,0.15); z-index: 1001; padding: 80px 30px 30px;
-            display: flex; flex-direction: column; gap: 25px; transition: right 0.4s var(--ease-quiet);
-        }
-        .mobile-menu.is-open { right: 0; }
-        .menu-close { position: absolute; top: 20px; right: 20px; background: transparent; border: none; cursor: pointer; padding: 5px; color: var(--text-soft); }
-        
-        .menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s var(--ease-quiet); }
-        .menu-overlay.is-active { opacity: 1; pointer-events: auto; }
-        
-        .mobile-nav ul { list-style: none; display: flex; flex-direction: column; gap: 20px; }
-        .mobile-nav a { font-size: 16px; font-weight: 500; color: var(--text); display: block; padding-bottom: 5px; border-bottom: 1px solid transparent; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; transition: color 0.3s ease; }
-        .mobile-nav a:hover { color: var(--accent-2); border-bottom-color: var(--accent-2); }
-        .mobile-contact-link { color: var(--accent) !important; font-weight: 600 !important; }
+.pic-wrap{
+  position:relative;width:150px;height:150px;margin:0 auto 1.75rem;
+  opacity:0;transform:scale(.85);
+  transition:opacity .55s var(--ease) .05s,transform .55s var(--ease) .05s;
+}
+.about-panel:hover .pic-wrap{opacity:1;transform:scale(1)}
+.pic-ring{
+  position:absolute;inset:-6px;border-radius:50%;
+  border:1px solid var(--ink);border-top-color:transparent;border-right-color:transparent;
+  animation:spin 6s linear infinite;
+}
+.pic{
+  width:100%;height:100%;border-radius:50%;overflow:hidden;
+  border:1px solid var(--rule);
+}
+.pic img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05)}
 
-        #app { min-height: 80vh; }
+.about-name{
+  font-size:1.4rem;font-weight:500;margin-bottom:.25rem;
+  opacity:0;transform:translateY(10px);
+  transition:opacity .5s var(--ease) .15s,transform .5s var(--ease) .15s;
+}
+.about-role{
+  font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);
+  margin-bottom:1.75rem;font-weight:400;
+  opacity:0;transform:translateY(10px);
+  transition:opacity .5s var(--ease) .25s,transform .5s var(--ease) .25s;
+}
+.about-panel:hover .about-name,
+.about-panel:hover .about-role{opacity:1;transform:translateY(0)}
 
-        .hero { position: relative; height: 90vh; overflow: hidden; background: var(--bg-soft); }
-        .hero-slider { position: relative; width: 100%; height: 100%; }
-        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1s var(--ease-quiet); pointer-events: none; }
-        .slide.is-active { opacity: 1; pointer-events: auto; }
-        .slide-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; }
-        .slide-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(0,0,0,0.65), rgba(0,0,0,0.25)); z-index: 1; }
-        .slide-content { position: relative; z-index: 2; max-width: 640px; padding: 0 50px; height: 100%; display: flex; flex-direction: column; justify-content: center; text-align: left; color: #ffffff; }
-        .slide-eyebrow { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.25em; color: var(--accent); margin-bottom: 1.5rem; }
-        .slide-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 3.5rem; font-weight: 400; line-height: 1.2; margin-bottom: 1.5rem; color: #ffffff; }
-        .slide-title em { font-style: italic; font-weight: 300; }
-        .slide-sub { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: 300; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 2.5rem; max-width: 500px; }
+.about-bio{
+  font-size:.98rem;line-height:1.75;color:var(--soft);max-width:520px;margin:0 auto 2rem;
+  opacity:0;transform:translateY(10px);
+  transition:opacity .5s var(--ease) .35s,transform .5s var(--ease) .35s;
+}
+.about-panel:hover .about-bio{opacity:1;transform:translateY(0)}
 
-        .hero-controls { position: absolute; bottom: 40px; left: 0; width: 100%; padding: 0 50px; display: flex; justify-content: space-between; align-items: center; z-index: 10; }
-        .hero-counter { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; color: rgba(255,255,255,0.8); letter-spacing: 0.1em; }
-        .hero-counter strong { color: #ffffff; font-weight: 600; }
-        .hero-dots { display: flex; gap: 12px; }
-        .hero-dot { width: 10px; height: 10px; background: rgba(255,255,255,0.3); border-radius: 50%; cursor: pointer; border: 1px solid transparent; transition: all 300ms var(--ease-quiet); padding: 0; }
-        .hero-dot.is-active { background: #ffffff; border-color: #ffffff; transform: scale(1.1); }
-        .hero-arrows { display: flex; gap: 15px; }
-        .hero-arrow { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); background: transparent; color: #ffffff; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 300ms var(--ease-quiet); }
-        .hero-arrow:hover { background: rgba(255,255,255,0.1); border-color: #ffffff; }
+.about-facts{
+  display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap;
+  margin-bottom:1.75rem;
+  opacity:0;transform:translateY(10px);
+  transition:opacity .5s var(--ease) .45s,transform .5s var(--ease) .45s;
+}
+.about-panel:hover .about-facts{opacity:1;transform:translateY(0)}
+.fact .num{font-size:1.75rem;font-weight:500;display:block;line-height:1}
+.fact .lbl{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);margin-top:.35rem;display:block}
 
-        .section { padding: 120px 50px; }
-        .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; text-align: left; flex-wrap: wrap; gap: 20px; }
-        .product-carousel-container { position: relative; max-width: 1400px; margin: 0 auto; }
-        .product-carousel { display: flex; gap: 30px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 20px; }
-        .product-carousel::-webkit-scrollbar { display: none; }
+.about-clients{
+  font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gray);
+  opacity:0;transform:translateY(10px);
+  transition:opacity .5s var(--ease) .55s,transform .5s var(--ease) .55s;
+}
+.about-panel:hover .about-clients{opacity:1;transform:translateY(0)}
 
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; padding: 0 50px 120px; max-width: 1400px; margin: 0 auto; }
+/* ===== Competencies (7 hover-expand rows) ===== */
+.competencies{background:var(--paper)}
+.comp-list{
+  max-width:1100px;margin:0 auto;border-top:1px solid var(--rule);
+}
+.comp-row{
+  border-bottom:1px solid var(--rule);
+  padding:1.75rem .5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  cursor:pointer;
+  transition:padding .5s var(--ease),background .4s var(--ease);
+}
+.comp-row:hover{padding-left:1.5rem;padding-right:1.5rem}
+.comp-row .title{
+  font-size:clamp(20px,2vw,28px);font-weight:400;
+  transition:font-weight .3s var(--ease),letter-spacing .4s var(--ease);
+}
+.comp-row:hover .title{font-weight:500;letter-spacing:.005em}
+.comp-row .plus{
+  width:34px;height:34px;border:1px solid var(--ink);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;font-weight:300;
+  transition:transform .5s var(--ease),background .35s,color .35s;
+}
+.comp-row:hover .plus{background:var(--ink);color:#fff;transform:rotate(45deg)}
 
-        .product-card {
-            background: var(--bg-soft); border: 1px solid var(--line-soft); transition: border-color 400ms var(--ease-quiet), transform 400ms var(--ease-quiet), box-shadow 400ms var(--ease-quiet); cursor: pointer;
-            display: flex; flex-direction: column; overflow: hidden; flex: 0 0 350px; scroll-snap-align: start;
-        }
-        .product-card.hidden { display: none; }
-        .product-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .product-card-img { width: 100%; height: 300px; background-size: cover; background-position: center; transition: opacity 400ms var(--ease-quiet); background-color: var(--bg); }
-        .product-card:hover .product-card-img { opacity: 0.9; }
+/* ===== Selected Works (text-free carousel) ===== */
+.works{background:var(--paper);padding-bottom:9rem}
+.works .narrow{margin-bottom:3.5rem}
+.carousel-wrap{
+  position:relative;width:100%;overflow:hidden;
+}
+.carousel{
+  display:flex;transition:transform .85s var(--ease);
+  cursor:grab;touch-action:pan-y;
+}
+.carousel.dragging{cursor:grabbing;transition:none}
+.slide{
+  flex:0 0 100%;position:relative;
+  aspect-ratio:16/9;
+  overflow:hidden;
+  background:#222;
+}
+.slide img{
+  width:100%;height:100%;object-fit:cover;
+  pointer-events:none;
+  transition:transform 8s var(--ease);
+}
+.slide::after{
+  content:'';position:absolute;inset:0;background:rgba(0,0,0,.18);pointer-events:none;
+}
+.slide-link{position:absolute;inset:0;z-index:2}
 
-        .product-card-info { padding: 24px; text-align: left; display: flex; flex-direction: column; flex-grow: 1; }
-        .product-category-tag { font-size: 12px; color: var(--text-mute); margin-bottom: 12px; display: block; font-weight: 500; }
-        .product-card-info h3 { font-size: 1.2rem; margin-bottom: 8px; font-weight: 400; color: var(--text); }
-        .price-container { margin-bottom: 10px; }
-        .actual-price { color: var(--text-mute); text-decoration: line-through; margin-right: 12px; font-size: 0.9rem; }
-        .discount-price { color: var(--accent); font-weight: 600; font-size: 1.3rem; }
-        .material-info { font-size: 0.85rem; color: var(--text-mute); text-align: left; border-top: 1px solid var(--line-soft); padding-top: 16px; margin-top: auto; line-height: 1.6; font-weight: 300; }
-        .material-info strong { color: var(--text-soft); font-weight: 500; }
+.chev{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:48px;height:48px;border-radius:50%;
+  background:rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.32);
+  display:flex;align-items:center;justify-content:center;color:#fff;
+  z-index:10;
+  font-size:1.5rem;font-weight:300;line-height:1;
+  opacity:0;transition:opacity .4s var(--ease),background .3s,color .3s;
+}
+.carousel-wrap:hover .chev{opacity:1}
+.chev:hover{background:#fff;color:#000}
+.chev.left{left:2rem}
+.chev.right{right:2rem}
+@media (hover:none){
+  .chev{opacity:1}
+}
 
-        .history-section { background: var(--bg-soft); display: flex; align-items: center; gap: 80px; padding: 120px 50px; border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
-        .history-image { flex: 1; height: 600px; background-image: url('https://z-cdn-media.chatglm.cn/files/9cb54507-2e2a-48e0-b537-be3e961f8a30.png?auth_key=1890252349-36e919e40ed3430fb4dd78033a27a99a-0-d67b0e2a25f45ac665afb6ea4284c576'); background-size: cover; background-position: center; filter: contrast(1.05); }
-        .history-text { flex: 1; }
-        .history-text h2 { font-size: 3rem; margin-bottom: 30px; color: var(--text); font-weight: 300; }
-        .history-text p { margin-bottom: 25px; font-size: 1.05rem; line-height: 1.8; color: var(--text-soft); font-weight: 300; }
+.car-meta{
+  display:flex;align-items:center;justify-content:center;gap:1.25rem;
+  margin-top:2rem;
+}
+.car-counter{font-size:.7rem;letter-spacing:.22em;color:var(--gray);font-weight:400}
+.car-bar{
+  flex:0 0 200px;height:1px;background:var(--rule);position:relative;overflow:hidden;
+}
+.car-bar-fill{
+  position:absolute;top:0;left:0;height:100%;background:var(--ink);
+  width:0;
+}
 
-        .page-header { text-align: left; padding: 100px 50px 40px; background: var(--bg-soft); border-bottom: 1px solid var(--line-soft); }
-        .page-header h1 { font-size: 2.5rem; margin-bottom: 15px; font-weight: 400; color: var(--text); }
-        .page-header p { color: var(--text-soft); max-width: 600px; margin: 0; font-size: 1rem; font-weight: 300; }
+/* ===== Footer ===== */
+.site-foot{
+  background:var(--ink);color:#fff;padding:3rem 2rem 2rem;
+}
+.site-foot .row1{
+  display:flex;align-items:center;justify-content:space-between;
+  max-width:1400px;margin:0 auto 2rem;
+}
+.site-foot .brand{display:flex;align-items:center;gap:.6rem}
+.site-foot .mark{width:26px;height:26px}
+.site-foot nav{display:flex;gap:2rem}
+.site-foot nav a{
+  font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;font-weight:400;
+  opacity:.85;transition:opacity .3s;
+  position:relative;padding:.25rem 0;
+}
+.site-foot nav a:hover{opacity:1}
+.site-foot nav a::after{
+  content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:#fff;
+  transition:width .4s var(--ease);
+}
+.site-foot nav a:hover::after{width:100%}
+.site-foot .row2{
+  display:flex;align-items:center;justify-content:space-between;gap:1.5rem;
+  max-width:1400px;margin:0 auto;padding-top:1.75rem;
+  border-top:1px solid var(--rule-dark);
+  font-size:.65rem;letter-spacing:.15em;color:rgba(255,255,255,.5);
+  flex-wrap:wrap;
+}
+.site-foot .socials{display:flex;gap:.75rem}
+.site-foot .socials a{
+  width:36px;height:36px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.22);
+  display:flex;align-items:center;justify-content:center;
+  transition:background .3s,color .3s,border-color .3s;
+}
+.site-foot .socials a:hover{background:#fff;color:#000;border-color:#fff}
+.site-foot .socials svg{width:15px;height:15px}
 
-        .filters { text-align: left; padding: 40px 50px; display: flex; justify-content: flex-start; gap: 40px; flex-wrap: wrap; background: var(--bg-soft); border-bottom: 1px solid var(--line-soft); }
+/* ===== Case study overlay ===== */
+.case{
+  position:fixed;inset:0;background:var(--paper);z-index:200;
+  overflow-y:auto;
+  opacity:0;visibility:hidden;
+  transition:opacity .6s var(--ease),visibility .6s var(--ease);
+}
+.case.open{opacity:1;visibility:visible}
+.case-close{
+  position:fixed;top:1.5rem;right:2rem;z-index:10;
+  width:44px;height:44px;border-radius:50%;
+  background:var(--ink);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;line-height:1;font-weight:300;
+  transition:transform .3s var(--ease),background .3s;
+}
+.case-close:hover{transform:rotate(90deg);background:#222}
+.case-content{padding:8rem 2rem 5rem;max-width:1100px;margin:0 auto}
+.case-content h1{
+  font-size:clamp(36px,5.5vw,80px);font-weight:500;line-height:1.05;margin-bottom:1rem;
+  letter-spacing:-.02em;
+}
+.case-meta{
+  font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gray);
+  margin-bottom:3rem;
+  display:flex;gap:1rem;flex-wrap:wrap;
+}
+.case-meta span:not(:last-child)::after{content:'·';margin-left:1rem;color:var(--rule);}
+.case-content p{font-size:1.02rem;line-height:1.8;margin-bottom:1.5rem;color:var(--soft);max-width:680px}
+.case-content figure{margin:3rem 0}
+.case-content figure img{width:100%;border-radius:2px}
+.case-content figcaption{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gray);margin-top:.75rem;text-align:center}
+.case-back{display:inline-block;margin-top:2rem;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;border-bottom:1px solid var(--ink);padding-bottom:.25rem}
 
-        .pd-top-bar { display: flex; align-items: center; margin: 40px 50px 0; }
-        .pd-back-text { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 500; font-size: 13px; color: var(--text-soft); transition: color 400ms var(--ease-quiet); cursor: pointer; }
-        .pd-back-text:hover { color: var(--accent); }
-
-        .product-detail-container { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; max-width: 1200px; margin: 0 auto; padding: 40px 50px 120px; }
-        .pd-gallery { display: flex; flex-direction: column; gap: 20px; }
-        .pd-main-image { width: 100%; height: 550px; background-size: cover; background-position: center; border: 1px solid var(--line); background-color: var(--bg-soft); }
-        .pd-thumbnails { display: flex; gap: 15px; flex-wrap: wrap; }
-        .pd-thumbnail { width: 100px; height: 100px; background-size: cover; background-position: center; cursor: pointer; border: 1px solid var(--line); transition: border-color 400ms var(--ease-quiet); background-color: var(--bg-soft); }
-        .pd-thumbnail:hover { border-color: var(--accent-2); }
-        .pd-thumbnail.active { border-color: var(--accent); }
-
-        .pd-info h1 { font-size: 2.5rem; margin-bottom: 20px; font-weight: 400; }
-        .pd-price-container { margin-bottom: 10px; display: flex; align-items: baseline; gap: 15px; }
-        .pd-actual-price { font-size: 1.2rem; color: var(--text-mute); text-decoration: line-through; }
-        .pd-discount-price { font-size: 2rem; color: var(--accent); font-weight: 600; }
-        
-        .pd-offer-badge { display: block; color: var(--text-mute); font-size: 14px; font-weight: 600; margin-bottom: 15px; font-family: 'Plus Jakarta Sans', sans-serif; }
-        .pd-subtext { font-size: 0.9rem; color: var(--text-mute); margin-bottom: 40px; font-weight: 300; }
-        
-        .pd-details { margin-top: 60px; border-top: 1px solid var(--line); padding-top: 40px; }
-        .pd-details h3 { font-size: 13px; margin-bottom: 30px; color: var(--text-soft); font-weight: 600; }
-        .pd-spec-row { display: grid; grid-template-columns: 180px 1fr; margin-bottom: 20px; font-size: 14px; align-items: baseline; }
-        .pd-spec-label { font-weight: 600; color: var(--text); font-size: 14px; }
-        .pd-spec-value { color: var(--text-soft); font-weight: 300; font-size: 14px; }
-        .pd-delivery-box { background: var(--bg); padding: 20px; border-left: 2px solid var(--accent); margin-top: 30px; font-size: 14px; color: var(--text-soft); font-weight: 300; }
-
-        .terms-container { max-width: 800px; margin: 0 auto; padding: 80px 40px; }
-        .terms-container h1 { font-size: 2.5rem; margin-bottom: 40px; text-align: left; color: var(--text); font-weight: 400; }
-        .terms-section { margin-bottom: 40px; }
-        .terms-section h2 { font-size: 1rem; margin-bottom: 12px; color: var(--text-soft); font-weight: 600; }
-        .terms-section p { font-size: 0.95rem; color: var(--text-soft); font-weight: 300; line-height: 1.8; }
-
-        footer { background: var(--bg-soft); color: var(--text-mute); padding: 80px 50px 40px; border-top: 1px solid var(--line-soft); }
-        .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: 1200px; margin: 0 auto; }
-        .footer-col h4 { color: var(--text); margin-bottom: 24px; font-size: 13px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; }
-        .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 12px; }
-        .footer-col a { color: var(--text-mute); text-decoration: none; transition: color 400ms var(--ease-quiet); cursor: pointer; font-size: 0.9rem; font-weight: 300; }
-        .footer-col a:hover { color: var(--accent); }
-        .footer-bottom { text-align: left; margin-top: 60px; border-top: 1px solid var(--line-soft); padding-top: 30px; font-size: 0.85rem; color: var(--text-mute); font-weight: 300; }
-
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-
-        @media (max-width: 992px) {
-            .history-section { flex-direction: column; gap: 40px; padding: 60px 20px; }
-            .history-image { height: 400px; width: 100%; }
-            .history-text h2 { font-size: 2.2rem; }
-            .product-detail-container { grid-template-columns: 1fr; gap: 40px; padding: 20px 30px 80px; }
-            .pd-main-image { height: 450px; }
-        }
-        @media (max-width: 768px) {
-            header { padding: 15px 20px; gap: 10px; }
-            .logo svg { height: 16px; }
-            #mainNav { display: none; } 
-            .contact-cta { display: none; }
-            .menu-toggle { display: flex; }
-            .slide-content { padding: 0 20px; }
-            .slide-title { font-size: 2.2rem; }
-            .slide-sub { font-size: 0.95rem; }
-            .hero-controls { padding: 0 20px; bottom: 20px; }
-            .section { padding: 80px 20px; }
-            .product-card { flex: 0 0 280px; }
-            .product-card-img { height: 250px; }
-            .product-card-info { padding: 16px; }
-            .product-card-info h3 { font-size: 1.1rem; margin-bottom: 6px; }
-            .price-container { margin-bottom: 8px; }
-            .actual-price { font-size: 0.8rem; margin-right: 8px; }
-            .discount-price { font-size: 1.05rem; }
-            .material-info { font-size: 0.8rem; padding-top: 12px; }
-            .products-grid { grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 20px 80px; }
-            .page-header { padding: 80px 20px 30px; }
-            .filters { gap: 20px; padding: 30px 20px; }
-            .pd-spec-row { grid-template-columns: 120px 1fr; gap: 10px; }
-            .footer-grid { grid-template-columns: 1fr; text-align: left; gap: 30px; }
-        }
-    </style>
+/* ===== Mobile ===== */
+@media (max-width:768px){
+  section{padding:5rem 1.5rem}
+  .site-head{padding:1rem 1.5rem}
+  .site-head nav{gap:1.25rem}
+  .site-head nav a{font-size:.65rem;letter-spacing:.18em}
+  .brand-name{display:none}
+  .about{padding-top:7rem}
+  .chev{width:40px;height:40px;font-size:1.25rem}
+  .chev.left{left:1rem}
+  .chev.right{right:1rem}
+  .about-facts{gap:1.5rem}
+  .car-bar{flex:0 0 120px}
+  .case-content{padding:6rem 1.5rem 4rem}
+  .case-close{top:1rem;right:1.25rem}
+}
+</style>
 </head>
 <body>
 
-    <header>
-        <div class="logo" onclick="window.navigate('home')">
-            <svg width="684" height="159" viewBox="0 0 684 159" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M567.81 99.4558L552.208 134.364C549.771 139.78 548.552 144.244 548.552 147.757C548.552 152.587 550.99 156.026 555.865 158.075H521.006C522.631 158.075 524.987 156.612 528.075 153.684C531.163 150.757 534.738 144.976 538.801 136.34L602.425 0L665.562 136.999C669.137 144.903 672.55 150.318 675.8 153.245C679.213 156.173 681.894 157.783 683.844 158.075H643.379C647.441 156.319 649.473 153.611 649.473 149.952C649.473 146.878 648.173 142.487 645.572 136.779L628.509 99.4558H567.81ZM624.608 90.4543L598.037 31.8346L571.954 90.4543H624.608Z" fill="black"/>
-                <path d="M439.89 78.6156C446.935 78.6156 453.06 77.0103 458.266 73.7998C463.473 70.4364 467.378 66.1558 469.981 60.9578C472.738 55.6070 474.116 50.0269 474.116 44.2174C474.116 38.2550 472.814 32.6748 470.211 27.4769C467.761 22.1260 463.932 17.7690 458.726 14.4056C453.519 11.0422 447.164 9.3605 439.661 9.3605H420.136V136.863C420.136 142.978 420.902 147.641 422.433 150.852C423.965 153.909 425.649 155.973 427.487 157.044C429.324 157.961 430.243 158.267 430.243 157.961H393.721C393.721 158.267 394.64 157.884 396.477 156.814C398.315 155.744 399.923 153.68 401.301 150.623C402.832 147.565 403.598 142.978 403.598 136.863V22.2025C403.598 15.9344 402.832 11.1951 401.301 7.98457C399.923 4.62119 398.315 2.4044 396.477 1.33424C394.64 0.111191 393.721 -0.271019 393.721 0.187627H439.201C451.146 0.187627 460.946 2.17507 468.603 6.14997C476.413 9.972 482.002 15.0171 485.371 21.2852C488.893 27.4005 490.654 34.1272 490.654 41.4655C490.654 47.5808 489.199 53.6196 486.29 59.5819C483.38 65.3914 479.169 70.5129 473.656 74.9464C468.297 79.2271 462.018 82.2083 454.821 83.89L451.146 84.5779L491.573 135.946C496.933 141.908 501.374 146.495 504.896 149.705C508.418 152.916 510.944 155.056 512.476 156.126C514.16 157.196 515.156 157.808 515.462 157.961H488.587L426.108 78.6156H439.89Z" fill="black"/>
-                <path d="M134.834 158.034C136.672 157.727 138.662 156.12 140.806 153.21C142.95 150.147 144.022 144.558 144.022 136.442V21.5918L83.9623 158.034L22.7403 21.8215V135.293C22.7403 143.563 24.042 149.382 26.6452 152.751C29.4016 155.966 31.8518 157.727 33.9956 158.034H0C2.297 157.727 4.8237 156.043 7.5801 152.98C10.3365 149.764 11.7147 143.869 11.7147 135.293V20.2136C11.7147 12.8632 10.4131 7.80982 7.8098 5.05342C5.20654 2.29701 2.60327 0.612535 0 0H31.0095L87.4078 125.876L142.644 0H170.438C168.447 0.306263 166.303 1.91419 164.006 4.82372C161.709 7.73327 160.56 13.0929 160.56 20.9027V137.361C160.56 145.017 161.709 150.3 164.006 153.21C166.303 156.12 168.447 157.727 170.438 158.034H134.834Z" fill="black"/>
-                <circle cx="282.002" cy="79.1127" r="79.0387" transform="rotate(-90 282.002 79.1127)" fill="#0040FF"/>
-                <ellipse cx="282.001" cy="108.752" rx="49.3992" ry="49.3992" transform="rotate(-90 282.001 108.752)" fill="#39FF14"/>
-            </svg>
-        </div>
+<!-- ===== Loading ===== -->
+<div class="loader" id="loader">
+  <div class="mark">
+    <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="#0057FF"/><circle cx="16" cy="22" r="6" fill="#3FE000"/></svg>
+  </div>
+</div>
 
-        <nav id="mainNav">
-            <ul>
-                <li><a onclick="window.navigate('home')">Home</a></li>
-                <li><a onclick="window.navigate('products', {filter: 'all'})">All products</a></li>
-                <li><a onclick="window.navigate('products', {filter: 'standard'})">Standard</a></li>
-                <li><a onclick="window.navigate('products', {filter: 'designer'})">Designer</a></li>
-            </ul>
-        </nav>
-        <a href="https://wa.me/911234567890" target="_blank" class="contact-cta">Contact us 
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </a>
+<!-- ===== Header ===== -->
+<header class="site-head">
+  <a href="#" class="brand" aria-label="Home">
+    <span class="mark">
+      <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="#0057FF"/><circle cx="16" cy="22" r="6" fill="#3FE000"/></svg>
+    </span>
+    <span class="brand-name">Rakesh Mohan</span>
+  </a>
+  <nav>
+    <a href="#works">Works</a>
+    <a href="https://wa.me/918884572044" target="_blank" rel="noopener">Contact</a>
+  </nav>
+</header>
 
-        <button id="menuToggle" class="menu-toggle" aria-label="Open menu" onclick="openMobileMenu()">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
-        </button>
-    </header>
+<!-- ===== Hero (no text, just video + scroll line) ===== -->
+<section class="hero" id="hero">
+  <!-- Replace src with your own showreel .mp4 -->
+  <video autoplay muted loop playsinline>
+    <source src="https://cdn.coverr.co/videos/coverr-an-artist-painting-2633/1080p.mp4" type="video/mp4">
+  </video>
+  <a href="#about" class="scroll-line" aria-label="Scroll to About"></a>
+</section>
 
-    <!-- Animated Ad Banner -->
-    <div class="ad-banner">
-        <div class="ad-track">
-            <div class="ad-group">
-                <span>Introductory offer of FLAT 60% on all products. &nbsp;&bull;&nbsp;</span>
-                <span>Introductory offer of FLAT 60% on all products. &nbsp;&bull;&nbsp;</span>
-                <span>Introductory offer of FLAT 60% on all products. &nbsp;&bull;&nbsp;</span>
-                <span>Introductory offer of FLAT 60% on all products. &nbsp;&bull;&nbsp;</span>
-            </div>
-            <div class="ad-group" aria-hidden="true">
-                <span>Introductory offer of FLAT 60% on all products. &nbsp;&bull;&nbsp;</span>
-                <span>Introductory offer of FLAT 60% on all products. &nbsp;&bull;&nbsp;</span>
-                <span>Introductory offer of FLAT 60% on all products. &nbsp;&bull;&nbsp;</span>
-                <span>Introductory offer of FLAT 60% on all products. &nbsp;&bull;&nbsp;</span>
-            </div>
-        </div>
+<!-- ===== About ===== -->
+<section class="about" id="about">
+  <div class="narrow">
+    <span class="comp-label">About Me</span>
+  </div>
+  <div class="about-panel">
+    <div class="about-collapsed">
+      Designer, art director and storyteller based in Mumbai.
+      <span class="hint">Hover to open +</span>
     </div>
-
-    <div id="menuOverlay" class="menu-overlay" onclick="closeMobileMenu()"></div>
-
-    <div id="mobileMenu" class="mobile-menu">
-        <button class="menu-close" aria-label="Close menu" onclick="closeMobileMenu()">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-        </button>
-        <nav class="mobile-nav">
-            <ul>
-                <li><a onclick="window.navigate('home'); closeMobileMenu();">Home</a></li>
-                <li><a onclick="window.navigate('products', {filter: 'all'}); closeMobileMenu();">All Products</a></li>
-                <li><a onclick="window.navigate('products', {filter: 'standard'}); closeMobileMenu();">Standard</a></li>
-                <li><a onclick="window.navigate('products', {filter: 'designer'}); closeMobileMenu();">Designer</a></li>
-                <li><a href="https://wa.me/911234567890" target="_blank" class="mobile-contact-link" onclick="closeMobileMenu();">Contact Us</a></li>
-            </ul>
-        </nav>
+    <div class="about-expanded">
+      <div class="pic-wrap">
+        <div class="pic-ring"></div>
+        <div class="pic">
+          <!-- Replace with ./profile.jpg -->
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&q=80" alt="Rakesh Mohan">
+        </div>
+      </div>
+      <h3 class="about-name">Rakesh Mohan</h3>
+      <div class="about-role">Art Director — Mumbai</div>
+      <p class="about-bio">
+        Over a decade shaping brands across fashion, culture and technology. My work lives at the intersection of editorial sensibility, rigorous systems, and the kind of detail that turns a campaign into a memory. Currently independent — selectively available for commissions.
+      </p>
+      <div class="about-facts">
+        <div class="fact"><span class="num">12+</span><span class="lbl">Years</span></div>
+        <div class="fact"><span class="num">80</span><span class="lbl">Projects</span></div>
+        <div class="fact"><span class="num">9</span><span class="lbl">Awards</span></div>
+      </div>
+      <div class="about-clients">Nike · Sabyasachi · Uniqlo · Apple · Vogue · Kinfolk</div>
     </div>
+  </div>
+</section>
 
-    <div id="app"></div>
+<!-- ===== Competencies ===== -->
+<section class="competencies" id="competencies">
+  <div class="narrow">
+    <span class="comp-label">Competencies</span>
+    <h2 class="comp-heading">Seven disciplines, one obsession.</h2>
+  </div>
+  <div class="comp-list" id="compList"></div>
+</section>
 
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h4>Products</h4>
-                <ul>
-                    <li><a onclick="window.navigate('products', {filter: 'all'})">All products</a></li>
-                    <li><a onclick="window.navigate('products', {filter: 'standard'})">Standard</a></li>
-                    <li><a onclick="window.navigate('products', {filter: 'designer'})">Designer</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Contact</h4>
-                <ul>
-                    <li><a href="https://wa.me/911234567890" target="_blank">WhatsApp</a></li>
-                    <li><a href="https://www.instagram.com/mora.paithrukam?stkn=eno3M3E0bHUzMndv" target="_blank">Instagram</a></li>
-                    <li><a href="mailto:contact@mora.com">Email</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Company</h4>
-                <ul>
-                    <li><a onclick="window.navigate('terms')">Terms & policies</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2023 MORA. Heritage handcrafted.</p>
-        </div>
-    </footer>
+<!-- ===== Selected Works ===== -->
+<section class="works" id="works">
+  <div class="narrow">
+    <span class="comp-label">View Projects</span>
+    <h2 class="comp-heading">Selected Works</h2>
+  </div>
+  <div class="carousel-wrap" id="carWrap">
+    <div class="carousel" id="carousel"></div>
+    <button class="chev left" id="chevLeft" aria-label="Previous">‹</button>
+    <button class="chev right" id="chevRight" aria-label="Next">›</button>
+  </div>
+  <div class="car-meta">
+    <span class="car-counter" id="carCounter">01 / 05</span>
+    <div class="car-bar"><div class="car-bar-fill" id="carBar"></div></div>
+  </div>
+</section>
 
-    <script>
-        const DELIVERY_TEXT = "Free delivery within Bangalore, with orders delivered within 3 days of booking. Additional delivery charges apply for locations outside Bangalore.";
+<!-- ===== Footer ===== -->
+<footer class="site-foot">
+  <div class="row1">
+    <a href="#" class="brand" aria-label="Home">
+      <span class="mark">
+        <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="#0057FF"/><circle cx="16" cy="22" r="6" fill="#3FE000"/></svg>
+      </span>
+      <span class="brand-name">Rakesh Mohan</span>
+    </a>
+    <nav>
+      <a href="#works">Works</a>
+      <a href="https://wa.me/918884572044" target="_blank" rel="noopener">Contact</a>
+    </nav>
+  </div>
+  <div class="row2">
+    <span>© 2026 Rakesh Mohan — All rights reserved.</span>
+    <div class="socials">
+      <a href="https://www.linkedin.com/in/rakesh-mohan-a0275a35a/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
 
-        const PRODUCTS = [
-          { id: 35, name: "Arati", cat: "Standard", material: "Handmade Banana paper, Base: Teak", price: 1000, originalPrice: 2500, imgs: ["https://i.ibb.co/XxYkVX9y/Arati-1.jpg", "https://i.ibb.co/1YPrHrYv/Arati-2.jpg", "https://i.ibb.co/5JTYD3V/Arati-3.jpg"], specs: { "Dimension": "H-12 inches, W-6 inches", "Material": "Handmade Banana paper, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 5, name: "Niranjana", cat: "Designer", material: "Netted Stretchable Fabric, Base: Coffee wood + Teak", price: 2200, originalPrice: 5500, imgs: ["https://i.ibb.co/BHYSx74d/Niranjana-1.jpg", "https://i.ibb.co/pjCkNWWM/Niranjana-2.jpg", "https://i.ibb.co/60ncDGrd/Niranjana-3.jpg"], specs: { "Dimension": "H-12 inches, W-16 inches", "Material": "Netted Stretchable Fabric, Base: Coffee wood + Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },          { id: 34, name: "Lima", cat: "Standard", material: "Handmade lemongrass paper, Base: Teak", price: 1000, originalPrice: 2500, imgs: ["https://i.ibb.co/TqqtrJzT/Lima-1.jpg", "https://i.ibb.co/Vpq1Qy41/Lima-2.jpg", "https://i.ibb.co/wZyRy6Xw/Lima-3.jpg"], specs: { "Dimension": "H-12 inches, W-6 inches", "Material": "Handmade lemongrass paper, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 33, name: "Kera", cat: "Standard", material: "Handmade coconut paper, Base: Teak", price: 1000, originalPrice: 2500, imgs: ["https://i.ibb.co/twqL6rXr/Kera-1.jpg", "https://i.ibb.co/wZqBpG4D/Kera-2.jpg", "https://i.ibb.co/ymsSK9P8/Kera-3.jpg"], specs: { "Dimension": "H-12 inches, W-6 inches", "Material": "Handmade coconut paper, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 8, name: "Kamala", cat: "Designer", material: "Cotton Fabric, Base: Teak", price: 1600, originalPrice: 4000, imgs: ["https://i.ibb.co/kVCNxzTR/Kamala-1.jpg", "https://i.ibb.co/SDzMs9pQ/Kamala-2.jpg", "https://i.ibb.co/DfpfW1np/Kamala-3.jpg"], specs: { "Dimension": "H-11 inches, W-8 inches", "Material": "Cotton Fabric, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 32, name: "Jui", cat: "Standard", material: "Raw cotton fabric, Base: Teak", price: 1000, originalPrice: 2500, imgs: ["https://i.ibb.co/PsckVpLd/Jui-1.jpg", "https://i.ibb.co/gZy4FnJ0/Jui-2.jpg", "https://i.ibb.co/7JcVTGFb/Jui-3.jpg"], specs: { "Dimension": "H-12 inches, W-6 inches", "Material": "Raw cotton fabric, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 31, name: "Hamsa", cat: "Designer", material: "Raw cotton fabric, Base: Teak, rose wood finish", price: 3500, originalPrice: 8750, imgs: ["https://i.ibb.co/5WnqQ5Fn/Hamsa-1.jpg", "https://i.ibb.co/ycMBLzmc/Hamsa-2.jpg", "https://i.ibb.co/hxt8pYvn/Hamsa-3.jpg"], specs: { "Dimension": "H-18 inches, W-12 inches", "Material": "Raw cotton fabric, Base: Teak, rose wood finish", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 30, name: "Kana", cat: "Designer", material: "Golden shiny fabric, Base: Teak", price: 3500, originalPrice: 8750, imgs: ["https://i.ibb.co/yFDWQH5j/KANA-1.jpg", "https://i.ibb.co/fY8qqrJN/KANA-2.jpg", "https://i.ibb.co/rGXVdr9K/KANA-3.jpg"], specs: { "Dimension": "H-18 inches, W-12 inches", "Material": "Golden shiny fabric, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 29, name: "Madhurya", cat: "Designer", material: "Lemon grass paper, Base: Terracotta", price: 1800, originalPrice: 4500, imgs: ["https://i.ibb.co/LDqQxvnr/Madhurya-1.jpg", "https://i.ibb.co/p6fhgdD6/Madhurya-2.jpg", "https://i.ibb.co/jjNbmXgk/Madhurya-3.jpg"], specs: { "Dimension": "H-15 inches, W-17 inches", "Material": "Lemon grass paper, Base: Terracotta", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 28, name: "Indra", cat: "Designer", material: "Embroidery Fabric, Base: Nilambur Teak, Rose wood finish", price: 7000, originalPrice: 17500, imgs: ["https://i.ibb.co/prvKhjjt/INDRA-1.jpg", "https://i.ibb.co/WNb5Qzvp/INDRA-2.jpg", "https://i.ibb.co/67JFDgDR/INDRA-3.jpg"], specs: { "Dimension": "H-18 inches, W-12 inches", "Material": "Embroidery Fabric, Base: Nilambur Teak, Rose wood finish", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 1, name: "Suvarna", cat: "Designer", material: "Coconut paper, Coffee wood, White wood", price: 4800, originalPrice: 12000, imgs: ["https://i.ibb.co/SX358TQC/Suvarna-1.jpg", "https://i.ibb.co/ZpnYqbkg/Suvarna-2.jpg", "https://i.ibb.co/jkQCQT13/Suvarna-3.jpg"], specs: { "Dimension": "H-20 inches, W-10 inches", "Material": "Coconut paper, Coffee wood, White wood", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 2, name: "Nancy Pearl", cat: "Standard", material: "Self embroidery fabric, Base: Teak", price: 1000, originalPrice: 2500, imgs: ["https://i.ibb.co/cS4Bt6fQ/Nancy-Pearl-1.jpg", "https://i.ibb.co/1GDxZDFT/Nancy-Pearl-2.jpg", "https://i.ibb.co/99HXhM6B/Nancy-Pearl-3.jpg"], specs: { "Dimension": "H-11 inches, W-6 inches", "Material": "Self embroidery fabric, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 3, name: "Red Palm", cat: "Standard", material: "Polyester, Base: Teak", price: 1800, originalPrice: 4500, imgs: ["https://i.ibb.co/wNh9MWPc/Red-Palm-1.jpg", "https://i.ibb.co/vxprv8Mp/Red-Palm-2.jpg", "https://i.ibb.co/0Tm10C3/Red-Palm-3.jpg"], specs: { "Dimension": "H-26 inches, W-6 inches", "Material": "Polyester, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 4, name: "Madhuri", cat: "Designer", material: "Lemongrass Paper, Base: Terracotta", price: 1600, originalPrice: 4000, imgs: ["https://i.ibb.co/H3qD8RD/Madhuri-1.jpg", "https://i.ibb.co/Kxw6MGYx/Madhuri-2.jpg", "https://i.ibb.co/j9xqWchQ/Madhuri-3.jpg"], specs: { "Dimension": "H-15 inches, W-17 inches", "Material": "Lemongrass Paper, Base: Terracotta", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 6, name: "Megha", cat: "Standard", material: "White Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500, imgs: ["https://i.ibb.co/27t7RpCw/Megha-1.jpg", "https://i.ibb.co/RkJ30r2b/Megha-2.jpg", "https://i.ibb.co/R4yr5D3k/Megha-3.jpg"], specs: { "Dimension": "H-44 inches, W-6inches", "Material": "White Fabric, Base: Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 7, name: "Shakthi", cat: "Standard", material: "Printed Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500, imgs: ["https://i.ibb.co/JWyg5BpD/Shakthi-1.jpg", "https://i.ibb.co/YFkktHpd/Shakthi-2.jpg", "https://i.ibb.co/1fHm0Kgj/Shakthi-3.jpg"], specs: { "Dimension": "H-36 inches, W-6 inches", "Material": "Printed Fabric, Base: Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 9, name: "Meconopsis", cat: "Standard", material: "Printed Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500, imgs: ["https://i.ibb.co/v4S7vWjg/Meconopsis-1.jpg", "https://i.ibb.co/Q3XQL2p8/Meconopsis-2.jpg", "https://i.ibb.co/ynjknG08/Meconopsis-3.jpg"], specs: { "Dimension": "H-37 inches, W-6 inches", "Material": "Printed Fabric, Base: Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 10, name: "Kamakshi", cat: "Designer", material: "Original Kancheepuram Silk, Base: Teak", price: 7000, originalPrice: 17500, imgs: ["https://i.ibb.co/ynMTrqkS/Kamakshi-1.jpg", "https://i.ibb.co/5xrBzcmG/Kamakshi-2.jpg", "https://i.ibb.co/CKTv23RK/Kamakshi-3.jpg"], specs: { "Dimension": "H-22 inches, W-13 inches", "Material": "Original Kancheepuram Silk, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 11, name: "Murasaki", cat: "Standard", material: "Korean Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500, imgs: ["https://i.ibb.co/FkTpL6rf/Murasaki-1.jpg", "https://i.ibb.co/v66j1C64/Murasaki-2.jpg", "https://i.ibb.co/S4dC9kmm/Murasaki-3.jpg"], specs: { "Dimension": "H-40 inches, W-6 inches", "Material": "Korean Fabric, Base: Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 12, name: "Basjoo", cat: "Standard", material: "Banana Paper, Base: Teak, Brass Pipe", price: 2200, originalPrice: 5500, imgs: ["https://i.ibb.co/pr2h1HrY/Basjoo-1.jpg", "https://i.ibb.co/5W0X80fJ/Basjoo-2.jpg", "https://i.ibb.co/Y72G6nDF/Basjoo-3.jpg"], specs: { "Dimension": "H-17 inches, W-6 inches", "Material": "Banana Paper, Base: Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 13, name: "Kuruvi", cat: "Designer", material: "White Fabric, Base: Royal Jasmine Stem+ Teak, Brass Pipe, Oil Painted on FRP bird", price: 3600, originalPrice: 9000, imgs: ["https://i.ibb.co/XrgddnXs/Kuruvi-1.jpg", "https://i.ibb.co/39fggXKH/Kuruvi-2.jpg", "https://i.ibb.co/JWq1YTXS/Kuruvi-3.jpg"], specs: { "Dimension": "H-17 inches, W-8 inches", "Material": "White Fabric, Base: Royal Jasmine Stem+ Teak, Brass Pipe, Oil Painted on FRP bird", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 14, name: "Pana", cat: "Standard", material: "White Cotton Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500, imgs: ["https://i.ibb.co/0pjtSKfY/Pana-1.jpg", "https://i.ibb.co/f55FJvW/Pana-2.jpg", "https://i.ibb.co/fVcn1T5L/Pana-3.jpg"], specs: { "Dimension": "H-18 inches, W-6 inches", "Material": "White Cotton Fabric, Base: Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 15, name: "Aranya", cat: "Standard", material: "Embroidery Fabric, Base: Coffee Wood + Teak", price: 2600, originalPrice: 6500, imgs: ["https://i.ibb.co/twnhLXQW/Aranya-1.jpg", "https://i.ibb.co/FkSmLyFS/Aranya-2.jpg", "https://i.ibb.co/xqX8RgJS/Aranya-3.jpg"], specs: { "Dimension": "H-31 inches, W-12 inches", "Material": "Embroidery Fabric, Base: Coffee Wood + Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 16, name: "The Maharani", cat: "Designer", material: "Embroidery Fabric, Base: Teak", price: 7600, originalPrice: 19000, imgs: ["https://i.ibb.co/RXvYqrJ/The-Maharani-1.jpg", "https://i.ibb.co/ycZWBR4D/The-Maharani-2.jpg", "https://i.ibb.co/zH5vJjNd/The-Maharani-3.jpg"], specs: { "Dimension": "H-28 inches, W-12 inches", "Material": "Embroidery Fabric, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 17, name: "Amore", cat: "Standard", material: "Embroidery Fabric, Base: Teak, Brass Pipe", price: 1800, originalPrice: 4500, imgs: ["https://i.ibb.co/j9BtpZd6/Amore-1.jpg", "https://i.ibb.co/6cBZskz9/Amore-2.jpg", "https://i.ibb.co/SwxsybG7/Amore-3.jpg"], specs: { "Dimension": "H-40 inches, W-6inches", "Material": "Embroidery Fabric, Base: Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 18, name: "Klee", cat: "Standard", material: "Embroidery Fabric, Base: Teak + Brass Pipe", price: 1800, originalPrice: 4500, imgs: ["https://i.ibb.co/TDmSmDQb/Klee-1.jpg", "https://i.ibb.co/v4KHsF5j/Klee-2.jpg", "https://i.ibb.co/KcJjsBfB/Klee-3.jpg"], specs: { "Dimension": "H-41 inches, W-6 inches", "Material": "Embroidery Fabric, Base: Teak + Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 19, name: "Kinu", cat: "Standard", material: "Raw Silk, Base: Teak", price: 2200, originalPrice: 5500, imgs: ["https://i.ibb.co/WN1j0Tg4/Kinu-1.jpg", "https://i.ibb.co/TxLG2ktS/Kinu-2.jpg", "https://i.ibb.co/zH58bQSj/Kinu-3.jpg"], specs: { "Dimension": "H-11 inches, W-12 inches", "Material": "Raw Silk, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 20, name: "Yoddha", cat: "Designer", material: "Embroidery Fabric, Base: Teak", price: 4200, originalPrice: 10500, imgs: ["https://i.ibb.co/W4jYfrKj/Yoddha-1.jpg", "https://i.ibb.co/gKnhf72/Yoddha-2.jpg", "https://i.ibb.co/vxPM3jyV/Yoddha-3.jpg"], specs: { "Dimension": "H-16 inches, W-12 inches", "Material": "Embroidery Fabric, Base: Teak", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 21, name: "Hilma", cat: "Standard", material: "Printed Fabric, Base: FRP- Oil Paint", price: 2200, originalPrice: 5500, imgs: ["https://i.ibb.co/RpVQXkrq/Hilma-1.jpg", "https://i.ibb.co/VcfkbYKB/Hilma-2.jpg", "https://i.ibb.co/PsPbHXzM/Hilma-3.jpg"], specs: { "Dimension": "H-25 inches, W-7 inches", "Material": "Printed Fabric, Base: FRP- Oil Paint", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 22, name: "Black Cherry", cat: "Designer", material: "Jute Fabric, Base: FRP- Oil paint", price: 4600, originalPrice: 11500, imgs: ["https://i.ibb.co/k2pMhDpn/Black-Cherry-1.jpg", "https://i.ibb.co/BKt8HMNm/Black-Cherry-2.jpg", "https://i.ibb.co/Y7VfCYP8/Black-Cherry-3.jpg"], specs: { "Dimension": "H-26 inches, W-12 inches", "Material": "Jute Fabric, Base: FRP- Oil paint", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 23, name: "Keeffe", cat: "Standard", material: "Printed Fabric, Base: Terracotta", price: 2200, originalPrice: 5500, imgs: ["https://i.ibb.co/wr07WXyb/Keeffe-1.jpg", "https://i.ibb.co/RpVj1TNJ/Keeffe-2.jpg", "https://i.ibb.co/DPQx6rxJ/Keeffe-3.jpg"], specs: { "Dimension": "H-31 inches, W-7 inches", "Material": "Printed Fabric, Base: Terracotta", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 24, name: "Caihou", cat: "Standard", material: "Handmade Paper, Base: Teak, Brass Pipe", price: 1200, originalPrice: 3000, imgs: ["https://i.ibb.co/XxKWmQT6/Caihou-1.jpg", "https://i.ibb.co/tTqQ6F10/Caihou-2.jpg", "https://i.ibb.co/DPwQjLmz/Caihou-3.jpg"], specs: { "Dimension": "H-18 inches, W-7 inches", "Material": "Handmade Paper, Base: Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 25, name: "Kanchana", cat: "Designer", material: "Netted Stretchable Fabric, Base: Royal Jasmine Stem", price: 2200, originalPrice: 5500, imgs: ["https://i.ibb.co/VYF4S07t/Kanchana-1.jpg", "https://i.ibb.co/3yTgHvqd/Kanchana-2.jpg", "https://i.ibb.co/j9jDFV3V/Kanchana-3.jpg"], specs: { "Dimension": "H-11 inches, W-8 inches", "Material": "Netted Stretchable Fabric, Base: Royal Jasmine Stem", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 26, name: "Olivia", cat: "Designer", material: "Banana Paper", price: 1200, originalPrice: 3000, imgs: ["https://i.ibb.co/sJ92QQjx/Olivia-1.jpg", "https://i.ibb.co/4yQBr8Q/Olivia-2.jpg", "https://i.ibb.co/XZjf2RFd/Olivia-3.jpg"], specs: { "Dimension": "H-18 inches, W-7 inches", "Material": "Banana Paper", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } },
-          { id: 27, name: "Mudra", cat: "Designer", material: "White Fabric, Base: Burma Teak, Brass Pipe", price: 11200, originalPrice: null, imgs: ["https://i.ibb.co/qqt36Ww/Mudra-1.jpg", "https://i.ibb.co/ZpkZfgPb/Mudra-2.jpg", "https://i.ibb.co/fVJ3nJZt/Mudra-3.jpg"], specs: { "Dimension": "H-26 inches, W-12 inches", "Material": "White Fabric, Base: Burma Teak, Brass Pipe", "Electrical fitting": "E27 holder threaded bulb", "Wire length": "1.5m", "Delivery": DELIVERY_TEXT } }
-        ];
+<!-- ===== Case study overlay ===== -->
+<div class="case" id="case" aria-hidden="true">
+  <button class="case-close" id="caseClose" aria-label="Close">×</button>
+  <div class="case-content" id="caseContent"></div>
+</div>
 
-        function openMobileMenu() {
-            document.getElementById('mobileMenu').classList.add('is-open');
-            document.getElementById('menuOverlay').classList.add('is-active');
-            document.body.style.overflow = 'hidden';
-        }
+<script>
+// ===== Data =====
+const COMPS = [
+  {title:'Art Direction',     desc:'Campaigns, lookbooks, films — setting the visual north star for brands across fashion, beauty and culture.'},
+  {title:'Brand Identity',    desc:'Logos, systems, guidelines. Marks that hold up from business card to billboard.'},
+  {title:'Editorial Design',  desc:'Books, magazines, zines. Long-form layout that respects the reader and the photograph.'},
+  {title:'Packaging',         desc:'Structural and surface design for products that need to feel as good as they look.'},
+  {title:'Type Design',       desc:'Custom letterforms and wordmarks. When the off-the-shelf font is not enough.'},
+  {title:'Motion Design',      desc:'Title sequences, social loops, brand animations. Type and image in time.'},
+  {title:'Photography Direction', desc:'Casting, location, lighting, shot lists. Making sure the frame says what it needs to.'},
+];
 
-        function closeMobileMenu() {
-            document.getElementById('mobileMenu').classList.remove('is-open');
-            document.getElementById('menuOverlay').classList.remove('is-active');
-            document.body.style.overflow = '';
-        }
+const WORKS = [
+  {title:'Sabyasachi × H&M',  cat:'Art Direction',    year:'2024', client:'Sabyasachi', img:'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1600&q=80', desc:'A six-month art direction partnership spanning the launch campaign, in-store experience and a 96-page lookbook fusing Indian craft with Scandinavian minimalism.'},
+  {title:'Uniqlo Linen',       cat:'Brand Identity',  year:'2024', client:'Uniqlo',     img:'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=80', desc:'Identity system for Uniqlo India\'s summer linen capsule — wordmark, pattern language and a flexible grid that scaled across 14 retail touchpoints.'},
+  {title:'Vogue India March', cat:'Editorial Design', year:'2023', client:'Vogue',     img:'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1600&q=80', desc:'Cover and full feature design for the March 2023 issue. A typographic system that let the photography breathe while keeping 120 pages cohesive.'},
+  {title:'Nike Mumbai Run',   cat:'Motion Design',    year:'2023', client:'Nike',       img:'https://images.unsplash.com/photo-1556906781-9a412961c28c?w=1600&q=80', desc:'Title sequence and 18 social cut-downs for Nike\'s first city-wide night run. Live-action plates composited with kinetic type.'},
+  {title:'Apple India Launch',cat:'Brand Identity',   year:'2024', client:'Apple',      img:'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1600&q=80', desc:'Visual identity and rollout guidelines for Apple\'s BKC store launch event — signage, wayfinding and a 60-page experience document.'},
+];
 
-        let heroCarouselInterval;
+// ===== Build competencies =====
+const compList = document.getElementById('compList');
+COMPS.forEach((c,i)=>{
+  const row = document.createElement('div');
+  row.className = 'comp-row';
+  row.innerHTML = `<span class="title">${c.title}</span><span class="plus" aria-hidden="true">+</span>`;
+  row.addEventListener('click',()=>openCase(i % WORKS.length, c));
+  compList.appendChild(row);
+});
 
-        window.navigate = function(view, params) {
-            params = params || {};
-            clearInterval(heroCarouselInterval);
-            var currentState = history.state || { view: 'home' };
-            history.replaceState(Object.assign({}, currentState, { scrollY: window.scrollY }), '', '');
-            var newState = Object.assign({ view: view }, params);
-            history.pushState(newState, '', '');
-            renderView(newState);
-            window.scrollTo(0, 0);
-            updateActiveNav(newState);
-        }
+// ===== Build carousel =====
+const carousel = document.getElementById('carousel');
+WORKS.forEach((w,i)=>{
+  const slide = document.createElement('div');
+  slide.className = 'slide';
+  slide.innerHTML = `<img src="${w.img}" alt="${w.title}" loading="${i===0?'eager':'lazy'}"><a href="#case/${i}" class="slide-link" aria-label="Open ${w.title}"></a>`;
+  carousel.appendChild(slide);
+});
 
-        window.addEventListener('popstate', function(e) {
-            clearInterval(heroCarouselInterval);
-            var state = e.state || { view: 'home' };
-            renderView(state);
-            if (state.scrollY !== undefined) {
-                setTimeout(function() { window.scrollTo(0, state.scrollY); }, 0);
-            }
-            updateActiveNav(state);
-        });
+// ===== Carousel logic =====
+let cur = 0;
+const total = WORKS.length;
+const counter = document.getElementById('carCounter');
+const bar = document.getElementById('carBar');
+let autoTimer = null;
 
-        function updateActiveNav(state) {
-            var navLinks = document.querySelectorAll('#mainNav a');
-            navLinks.forEach(function(link) { link.classList.remove('active'); });
-            if (state.view === 'home') navLinks[0].classList.add('active');
-            else if (state.view === 'products') {
-                if (state.filter === 'standard') navLinks[2].classList.add('active');
-                else if (state.filter === 'designer') navLinks[3].classList.add('active');
-                else navLinks[1].classList.add('active');
-            }
-        }
+function updateCar(animate=true){
+  if(!animate){
+    carousel.style.transition = 'none';
+  } else {
+    carousel.style.transition = '';
+  }
+  carousel.style.transform = `translateX(-${cur*100}%)`;
+  counter.textContent = `${String(cur+1).padStart(2,'0')} / ${String(total).padStart(2,'0')}`;
+  // progress bar fill
+  bar.style.transition = 'none';
+  bar.style.width = '0%';
+  // force reflow then animate
+  void bar.offsetWidth;
+  bar.style.transition = 'width 6s linear';
+  bar.style.width = '100%';
+}
+function go(n){cur=(n+total)%total;updateCar();resetAuto();}
+document.getElementById('chevLeft').onclick = (e)=>{e.stopPropagation();go(cur-1);};
+document.getElementById('chevRight').onclick = (e)=>{e.stopPropagation();go(cur+1);};
 
-        function renderView(state) {
-            var app = document.getElementById('app');
-            app.innerHTML = ''; 
-            if (state.view === 'home') renderHome();
-            else if (state.view === 'products') renderProducts(state.filter || 'all');
-            else if (state.view === 'product') renderProductDetail(state.id);
-            else if (state.view === 'terms') renderTerms();
-        }
+function resetAuto(){
+  clearInterval(autoTimer);
+  autoTimer = setInterval(()=>go(cur+1),6000);
+}
+updateCar(false);
+resetAuto();
 
-        function renderHome() {
-            var app = document.getElementById('app');
-            var stdProds = PRODUCTS.filter(function(p) { return p.cat === 'Standard'; });
-            var desProds = PRODUCTS.filter(function(p) { return p.cat === 'Designer'; });
-            var featuredProds = [];
-            for(var i=0; i<3; i++) {
-                if(stdProds[i]) featuredProds.push(stdProds[i]);
-                if(desProds[i]) featuredProds.push(desProds[i]);
-            }
-            featuredProds.sort(function() { return 0.5 - Math.random(); });
+// Drag/swipe (ignoring presses on chevrons)
+let startX=null, dragging=false, deltaX=0;
+carousel.addEventListener('pointerdown',(e)=>{
+  if(e.target.closest('.chev') || e.target.closest('.slide-link')) return;
+  startX = e.clientX;
+  dragging = true;
+  deltaX = 0;
+  carousel.classList.add('dragging');
+  clearInterval(autoTimer);
+});
+carousel.addEventListener('pointermove',(e)=>{
+  if(!dragging) return;
+  deltaX = e.clientX - startX;
+  carousel.style.transform = `translateX(calc(-${cur*100}% + ${deltaX}px))`;
+});
+function endDrag(){
+  if(!dragging) return;
+  dragging = false;
+  carousel.classList.remove('dragging');
+  if(Math.abs(deltaX) > 80){
+    go(deltaX < 0 ? cur+1 : cur-1);
+  } else {
+    updateCar();
+    resetAuto();
+  }
+  deltaX = 0;
+}
+carousel.addEventListener('pointerup', endDrag);
+carousel.addEventListener('pointercancel', endDrag);
+carousel.addEventListener('pointerleave', endDrag);
 
-            var featuredHtml = '';
-            for (var i = 0; i < featuredProds.length; i++) {
-                var p = featuredProds[i];
-                var actualPriceHtml = p.originalPrice ? '<span class="actual-price">₹' + p.originalPrice.toLocaleString('en-IN') + '</span>' : '';
-                featuredHtml += '<div class="product-card" onclick="window.navigate(\'product\', {id: ' + p.id + '})">' +
-                    '<div class="product-card-img" style="background-image: url(\'' + p.imgs[0] + '\')"></div>' +
-                    '<div class="product-card-info">' +
-                        '<span class="product-category-tag">' + p.cat + '</span>' +
-                        '<h3>' + p.name + '</h3>' +
-                        '<div class="price-container">' + actualPriceHtml + '<span class="discount-price">₹' + p.price.toLocaleString('en-IN') + '</span></div>' +
-                        '<div class="material-info"><strong>Material:</strong> ' + p.material + '</div>' +
-                    '</div>' +
-                '</div>';
-            }
+// Pause autoplay when tab hidden
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden){clearInterval(autoTimer);}
+  else {resetAuto();}
+});
 
-            app.innerHTML = 
-                '<section class="hero">' +
-                  '<div class="hero-slider" id="heroSlider">' +
-                    '<div class="slide is-active" data-slide="0"><div class="slide-bg" style="background-image:url(\'https://z-cdn-media.chatglm.cn/files/42ff0d90-f09f-49a3-a92f-3d66c08005e8.png?auth_key=1888501082-1377e97d630c4d9b84dfd76231738ae6-0-4f1d0a35b0a22bfa7320ea21f7f72900\')"></div><div class="slide-overlay"></div><div class="slide-content"><div class="slide-eyebrow">About Mora</div><h1 class="slide-title">Four generations of <em>craftsmanship</em></h1><p class="slide-sub">Since 1972, MORA has preserved four generations of rare Indian craftsmanship, creating sculptural pieces where heritage meets refined luxury.</p></div></div>' +
-                    '<div class="slide" data-slide="1"><div class="slide-bg" style="background-image:url(\'https://z-cdn-media.chatglm.cn/files/d9a876c4-9540-45b8-b903-ed713a3657db.jpg?auth_key=1888501082-20f749e82e694174b2ab9204ac434414-0-8d906e2287f7c4602a1043115c3d106a\')"></div><div class="slide-overlay"></div><div class="slide-content"><div class="slide-eyebrow">Our legacy</div><h1 class="slide-title">The Attukal <em>legacy</em></h1><p class="slide-sub">Founded in Attukal by National Awardee M.R. Krishnan, MORA carries a legacy of exceptional craftsmanship, artistry, and cultural heritage.</p></div></div>' +
-                    '<div class="slide" data-slide="2"><div class="slide-bg" style="background-image:url(\'https://z-cdn-media.chatglm.cn/files/24917b85-3f3e-4bf5-86fc-466148abcabc.jpg?auth_key=1888502050-ff45cadb32674cb1ae0487e3089505c0-0-898321f05fb874e72279d05d40af1046\')"></div><div class="slide-overlay"></div><div class="slide-content"><div class="slide-eyebrow">Material</div><h1 class="slide-title">Pieces of <em>rare character</em></h1><p class="slide-sub">Coconut, lemongrass, banana paper, silk, cotton, linen, jute, and polyester, thoughtfully chosen to create pieces of rare character and beauty.</p></div></div>' +
-                    '<div class="slide" data-slide="3"><div class="slide-bg" style="background-image:url(\'https://z-cdn-media.chatglm.cn/files/484c9341-d4e5-45f7-9ad1-a096ae4e6f11.jpeg?auth_key=1888503941-de21a168f03b495cb74e38c1ff252c62-0-c9c6ba55236cbe6d983b3e7e4e5e2353\')"></div><div class="slide-overlay"></div><div class="slide-content"><div class="slide-eyebrow">Designer products</div><h1 class="slide-title">Born from <em>heritage</em></h1><p class="slide-sub">Every MORA creation is handcrafted with exceptional artistry, making each piece rare, authentic, and uniquely yours.</p></div></div>' +
-                    '<div class="slide" data-slide="4"><div class="slide-bg" style="background-image:url(\'https://z-cdn-media.chatglm.cn/files/faeea79c-bff6-44a0-8e45-f1512bafe0c6.jpg?auth_key=1890669000-da8ed20d26e3432580ee5c3676e87d51-0-6bfa12bea507f6d7124a4264bed07007\')"></div><div class="slide-overlay"></div><div class="slide-content"><div class="slide-eyebrow">Cash on delivery</div><h1 class="slide-title">Delivered with <em>care</em></h1><p class="slide-sub">Carefully packed and personally delivered by our agents, ensuring every MORA creation reaches your doorstep safely, with Cash on delivery.</p></div></div>' +
-                  '</div>' +
-                  '<div class="hero-controls">' +
-                    '<div class="hero-counter"><strong id="heroCurrent">01</strong> &nbsp;/&nbsp; 05</div>' +
-                    '<div class="hero-dots" id="heroDots">' +
-                      '<button class="hero-dot is-active" data-dot="0"></button><button class="hero-dot" data-dot="1"></button><button class="hero-dot" data-dot="2"></button><button class="hero-dot" data-dot="3"></button><button class="hero-dot" data-dot="4"></button>' +
-                    '</div>' +
-                    '<div class="hero-arrows">' +
-                      '<button class="hero-arrow" id="heroPrev" aria-label="Previous slide"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></button>' +
-                      '<button class="hero-arrow" id="heroNext" aria-label="Next slide"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>' +
-                    '</div>' +
-                  '</div>' +
-                '</section>' +
-                '<div class="section">' +
-                    '<div class="section-header">' +
-                        '<h2>Featured masterpieces</h2>' +
-                        '<a class="featured-header-link" onclick="window.navigate(\'products\', {filter: \'all\'})">View all products <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>' +
-                    '</div>' +
-                    '<div class="product-carousel-container"><div class="product-carousel">' + featuredHtml + '</div></div>' +
-                '</div>' +
-                '<div class="history-section">' +
-                    '<div class="history-image"></div>' +
-                    '<div class="history-text">' +
-                        '<div class="eyebrow" style="color: var(--text-mute);">Our legacy</div>' +
-                        '<h2>Preserving the art of a legacy.</h2>' +
-                        '<p>Founded in 1972 in Attukal, Trivandrum, Kerala, MORA emerged at a turning point in Indian history. The traditional handicraft sector, once rich and vibrant, was declining due to colonial exploitation and post independence industrialization. In this environment, M.R. Krishnan, a national & state award winning artisan, established MORA not just as a business, but as a living tribute to India’s artistic and spiritual heritage.</p>' +
-                        '<p>Rooted in a proud four generation legacy of rare sculptural craftsmanship, MORA represents the seamless blend of age old tradition and refined artistry. Our master artisans shape each creation by hand, preserving techniques passed down through generations to produce timeless, museum worthy masterpieces. MORA is dedicated to safeguarding and celebrating the rich heritage of Indian craftsmanship.</p>' +
-                    '</div>' +
-                '</div>';
-            initHeroCarousel();
-        }
+// ===== Case study =====
+const caseEl = document.getElementById('case');
+const caseContent = document.getElementById('caseContent');
+document.getElementById('caseClose').onclick = ()=>closeCase(true);
 
-        function initHeroCarousel() {
-            var slides = document.querySelectorAll('#heroSlider .slide');
-            var dots = document.querySelectorAll('#heroDots .hero-dot');
-            var counter = document.getElementById('heroCurrent');
-            var prevBtn = document.getElementById('heroPrev');
-            var nextBtn = document.getElementById('heroNext');
-            
-            var current = 0;
-            var total = slides.length;
-            var slideInterval;
+function openCase(i, comp){
+  const w = WORKS[i] || WORKS[0];
+  const subtitle = comp ? comp.desc : w.desc;
+  caseContent.innerHTML = `
+    <h1>${w.title}</h1>
+    <div class="case-meta">
+      <span>${w.cat}</span>
+      <span>${w.client}</span>
+      <span>${w.year}</span>
+    </div>
+    <figure>
+      <img src="${w.img}" alt="${w.title}">
+      <figcaption>${w.title} — ${w.year}</figcaption>
+    </figure>
+    <p>${subtitle}</p>
+    <p>The engagement spanned strategy, art direction, design and execution — built in close collaboration with the client\'s team and delivered across print, digital and physical touchpoints. Process documentation, full deliverables list and outcomes available on request.</p>
+    <p>Selected as a benchmark project within the studio\'s portfolio for its synthesis of craft, system and cultural reading.</p>
+    <a href="#" class="case-back" onclick="window.__closeCase();return false;">← Back to works</a>
+  `;
+  caseEl.classList.add('open');
+  caseEl.setAttribute('aria-hidden','false');
+  caseEl.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+}
+function closeCase(popHistory){
+  caseEl.classList.remove('open');
+  caseEl.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+  if(popHistory && location.hash.startsWith('#case/')){
+    history.pushState('', document.title, location.pathname + location.search);
+  }
+}
+window.__closeCase = ()=>closeCase(true);
 
-            function updateSlidePosition() {
-                slides.forEach(function(slide, i) { slide.classList.toggle('is-active', i === current); });
-                dots.forEach(function(dot, i) { dot.classList.toggle('is-active', i === current); });
-                if (counter) { counter.textContent = String(current + 1).padStart(2, '0'); }
-            }
-            function nextSlide() { current = (current + 1) % total; updateSlidePosition(); }
-            function prevSlide() { current = (current - 1 + total) % total; updateSlidePosition(); }
-            function goToSlide(index) { current = index; updateSlidePosition(); resetInterval(); }
-            function resetInterval() { clearInterval(slideInterval); slideInterval = setInterval(nextSlide, 5000); }
+// Hash routing
+function checkHash(){
+  const m = location.hash.match(/^#case\/(\d+)/);
+  if(m){
+    openCase(parseInt(m[1],10));
+  } else if (location.hash === '' || location.hash === '#'){
+    // no-op
+  } else {
+    // anchor scroll
+  }
+}
+window.addEventListener('hashchange', checkHash);
 
-            if (nextBtn) nextBtn.addEventListener('click', function() { nextSlide(); resetInterval(); });
-            if (prevBtn) prevBtn.addEventListener('click', function() { prevSlide(); resetInterval(); });
-            if (dots.length > 0) { dots.forEach(function(dot, index) { dot.addEventListener('click', function() { goToSlide(index); }); }); }
-            resetInterval();
-        }
+// ===== Smooth scroll for in-page anchors (but not case links) =====
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',(e)=>{
+    const href = a.getAttribute('href');
+    if(!href || href === '#' ) return;
+    if(href.startsWith('#case/')) return; // case routing handled by hashchange
+    const target = document.querySelector(href);
+    if(target){
+      e.preventDefault();
+      target.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  });
+});
 
-        function renderProducts(filter) {
-            var app = document.getElementById('app');
-            var filtered = filter === 'all' ? PRODUCTS : PRODUCTS.filter(function(p) { return p.cat.toLowerCase() === filter; });
-            
-            var gridHtml = '';
-            for (var i = 0; i < filtered.length; i++) {
-                var p = filtered[i];
-                var actualPriceHtml = p.originalPrice ? '<span class="actual-price">₹' + p.originalPrice.toLocaleString('en-IN') + '</span>' : '';
-                gridHtml += '<div class="product-card" onclick="window.navigate(\'product\', {id: ' + p.id + '})">' +
-                    '<div class="product-card-img" style="background-image: url(\'' + p.imgs[0] + '\')"></div>' +
-                    '<div class="product-card-info">' +
-                        '<span class="product-category-tag">' + p.cat + '</span>' +
-                        '<h3>' + p.name + '</h3>' +
-                        '<div class="price-container">' + actualPriceHtml + '<span class="discount-price">₹' + p.price.toLocaleString('en-IN') + '</span></div>' +
-                        '<div class="material-info"><strong>Material:</strong> ' + p.material + '</div>' +
-                    '</div>' +
-                '</div>';
-            }
+// Escape closes case
+document.addEventListener('keydown',(e)=>{
+  if(e.key === 'Escape' && caseEl.classList.contains('open')){
+    closeCase(true);
+  }
+});
 
-            app.innerHTML = 
-                '<div class="page-header">' +
-                    '<h1>Lampshades</h1>' +
-                    '<p>Explore our curated range of handcrafted lampshades, blending age-old tradition with refined artistry.</p>' +
-                '</div>' +
-                '<div class="filters">' +
-                    '<button class="filter-btn ' + (filter === 'all' ? 'active' : '') + '" onclick="window.navigate(\'products\', {filter: \'all\'})">All products</button>' +
-                    '<button class="filter-btn ' + (filter === 'standard' ? 'active' : '') + '" onclick="window.navigate(\'products\', {filter: \'standard\'})">Standard</button>' +
-                    '<button class="filter-btn ' + (filter === 'designer' ? 'active' : '') + '" onclick="window.navigate(\'products\', {filter: \'designer\'})">Designer</button>' +
-                '</div>' +
-                '<div class="products-grid">' + gridHtml + '</div>';
-        }
+// ===== Loader =====
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    document.getElementById('loader').classList.add('done');
+    checkHash();
+  }, 700);
+});
 
-        function renderProductDetail(id) {
-            var p = PRODUCTS.find(function(prod) { return prod.id == id; });
-            var app = document.getElementById('app');
-            if (!p) { app.innerHTML = '<h1 style="text-align:center; padding:50px;">Product not found</h1>'; return; }
-
-            var waLink = 'https://wa.me/911234567890?text=I%20want%20to%20order%20' + encodeURIComponent(p.name);
-            var allProductImages = p.imgs.slice(); 
-            allProductImages.push("https://z-cdn-media.chatglm.cn/files/c4e4aa21-f86e-4e18-b813-a0c01c4b9a7e.jpg?auth_key=1890250423-818c3e1d509b416096797aad85942eee-0-a8c12d6dde8d9903af2ea449e84bf4ea");
-
-            var thumbsHtml = '';
-            for (var i = 0; i < allProductImages.length; i++) {
-                var activeClass = i === 0 ? ' active' : '';
-                thumbsHtml += '<div class="pd-thumbnail' + activeClass + '" style="background-image: url(\'' + allProductImages[i] + '\');" onclick="changeMainImage(this, \'' + allProductImages[i] + '\')"></div>';
-            }
-
-            var specsHtml = '';
-            for (var key in p.specs) {
-                var value = p.specs[key];
-                if (key === 'Delivery') {
-                    specsHtml += '<div class="pd-delivery-box"><strong>Delivery:</strong> ' + value + '</div>';
-                } else {
-                    specsHtml += '<div class="pd-spec-row"><div class="pd-spec-label">' + key + '</div><div class="pd-spec-value">' + value + '</div></div>';
-                }
-            }
-
-            var priceContainerHtml = p.originalPrice ? '<span class="pd-actual-price">₹' + p.originalPrice.toLocaleString('en-IN') + '</span>' : '';
-            priceContainerHtml += '<span class="pd-discount-price">₹' + p.price.toLocaleString('en-IN') + '</span>';
-
-            var offerBadgeHtml = p.originalPrice ? '<div class="pd-offer-badge">Flat 60% off - Introductory offer</div>' : '';
-
-            app.innerHTML = 
-                '<div class="pd-top-bar">' +
-                    '<a class="back-btn" onclick="history.back()">' +
-                        '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-                            '<path d="M15 18L9 12L15 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
-                        '</svg>' +
-                    '</a>' +
-                    '<span class="pd-back-text" onclick="history.back()">Back to products</span>' +
-                '</div>' +
-                '<div class="product-detail-container">' +
-                    '<div class="pd-gallery">' +
-                        '<div class="pd-main-image" id="mainImage" style="background-image: url(\'' + allProductImages[0] + '\');"></div>' +
-                        '<div class="pd-thumbnails">' + thumbsHtml + '</div>' +
-                    '</div>' +
-                    '<div class="pd-info">' +
-                        '<div class="eyebrow" style="color: var(--text-mute); font-weight: 400;">' + p.cat + ' series</div>' +
-                        '<h1>' + p.name + '</h1>' +
-                        '<div class="pd-price-container">' + priceContainerHtml + '</div>' +
-                        offerBadgeHtml +
-                        '<div class="pd-subtext">Tax included | Cash on delivery</div>' +
-                        '<a href="' + waLink + '" target="_blank" class="add-to-order" style="background: #25D366;">Order on WhatsApp</a>' +
-                        '<div class="pd-details">' +
-                            '<h3>Product details</h3>' +
-                            specsHtml +
-                        '</div>' +
-                    '</div>' +
-                '</div>';
-        }
-
-        function changeMainImage(element, newImageUrl) {
-            document.getElementById('mainImage').style.backgroundImage = 'url(\'' + newImageUrl + '\')';
-            document.querySelectorAll('.pd-thumbnail').forEach(function(el) { el.classList.remove('active'); });
-            element.classList.add('active');
-        }
-
-        function renderTerms() {
-            var terms = [
-                { title: "1. Product information", text: "Each lampshade is individually handcrafted using carefully selected materials. As a result, minor variations in colour, texture, grain, shape, finish and dimensions may occur. These natural variations are part of the character and uniqueness of a handmade product and should not be considered defects. Product colours may also appear slightly different depending on lighting conditions, photography and individual screen settings." },
-                { title: "2. Handmade product disclaimer", text: "Our products are handmade and not mass-produced. Minor variations, natural marks, surface irregularities and differences in texture may occur due to the nature of the materials and traditional craftsmanship. Such variations are not considered manufacturing defects." },
-                { title: "3. Material warranty", text: "The materials used in our lampshades are selected for their intended application and quality. However, natural materials such as wood, paper, fabric and other organic materials can change over time due to humidity, temperature, sunlight and environmental conditions. Material ageing, fading, discolouration, natural cracking, shrinkage or expansion caused by environmental conditions is not covered under warranty. Unless specifically mentioned on the individual product page, the product does not carry a lifetime or unconditional material warranty." },
-                { title: "4. Electrical safety", text: "Where a lampshade is supplied with electrical components, customers must use the product only with the recommended electrical fittings, bulb type and maximum wattage specified by the manufacturer. Customers must: Use the recommended bulb type and wattage. Ensure adequate ventilation around the bulb. Keep the lampshade away from water and excessive moisture. Keep flammable materials away from the lamp. Switch off and unplug the lamp when not in use or when unattended. Stop using the product if the wire, holder, switch or any electrical component appears damaged. Have electrical installation or repair work carried out by a qualified electrician where required." },
-                { title: "5. Short circuit, electrical failure & fire", text: "The product should be used strictly according to the supplied instructions and recommended electrical specifications. We are not responsible for damage, injury, fire, short circuit, electrical failure or consequential loss resulting from: Incorrect installation or wiring. Use of an incorrect or higher-wattage bulb. Use of incompatible electrical components. Voltage fluctuations, power surges or external electrical faults. Modification, alteration or repair by an unauthorised person. Improper handling, storage or installation. Use of the product in unsuitable environments. Negligence, misuse or failure to follow safety instructions. In the event of any unusual heat, burning smell, sparks, smoke or electrical malfunction, immediately switch off and disconnect the product from the power supply and discontinue use. Important: A lampshade should never be left switched on while unattended or while the customer is away from the premises." },
-                { title: "6. Product inspection", text: "Every product is carefully inspected before dispatch. Electrical components, where applicable, are also checked prior to shipment. Customers are requested to inspect the package and product immediately upon delivery. If the package or product is found to be damaged, the product should be returned immediately to the delivery agent and the issue must be reported to our customer service team immediately, along with photographs or other supporting evidence where possible. Once the product has been accepted and the delivery is completed, damage claims may be subject to verification and applicable return or replacement terms." },
-                { title: "7. Packaging", text: "Every product is carefully packed using protective packaging appropriate to its size, material and design. Because lampshades can be delicate and sculptural, protective packaging may include multiple layers of cushioning and structural support. Customers are advised to retain the original packaging until the product has been inspected and accepted." },
-                { title: "8. Transit damage", text: "If the product arrives visibly damaged, customers should: Photograph the outer packaging before opening it. Photograph the damaged product and packaging from multiple angles. Record an unboxing video wherever possible. Contact us as soon as possible with the order details and photographs/videos. Claims without adequate evidence may be difficult to verify. Transit-damage claims will be reviewed based on the condition of the product, packaging and available evidence." },
-                { title: "9. Delivery", text: "Delivery timelines vary depending on the customer's location, product availability and shipping conditions. The estimated delivery period provided at the time of purchase is an estimate and may be affected by: Courier delays. Weather conditions. Transport disruptions. Public holidays. Remote-location delivery. Address-related issues. Events outside our reasonable control. Delivery dates are therefore not guaranteed unless specifically confirmed in writing." },
-                { title: "10. Delivery address", text: "Customers are responsible for providing a complete and accurate delivery address and contact number. Additional delivery charges may apply if: The address is changed after dispatch. The courier has to make a second delivery attempt due to customer unavailability. The address is incorrect or incomplete. The location requires special or additional transportation." },
-                { title: "11. Cash on delivery", text: "For Cash on Delivery orders, the customer must make the full payment to the authorised delivery agent at the time of delivery. Customers should not make additional payments to unauthorised individuals claiming to represent the company." },
-                { title: "12. Returns & exchanges", text: "Because our lampshades are handcrafted and made in limited quantities, returns and exchanges may be subject to specific conditions. Returns will generally not be accepted for: Change of mind. Incorrect size selection by the customer. Colour preference after purchase. Minor natural variations in handmade materials. Customised or specially commissioned products. Damage caused after delivery. Where a product is found to have a manufacturing defect or arrives damaged in transit, the matter will be reviewed and an appropriate resolution may be offered." },
-                { title: "13. Cancellation", text: "Order cancellation requests must be made before the product is dispatched. Once a customised, made-to-order or specially prepared product has entered production, cancellation may not be possible." },
-                { title: "14. Installation & assembly", text: "Where installation or electrical connection is required, customers should use a qualified electrician or appropriate professional. The company is not responsible for damage or injury resulting from incorrect installation, unauthorised modification or improper electrical connection." },
-                { title: "15. Product care", text: "To maintain the appearance and longevity of your lampshade: Keep it away from direct and prolonged sunlight. Keep it away from water and excessive humidity. Do not use harsh chemicals or abrasive cleaning products. Do not pull or place excessive pressure on the shade. Clean gently using a soft, dry cloth or the care method recommended for the specific material. Use only the recommended bulb and wattage." },
-                { title: "16. Warranty", text: "Where a specific warranty period is offered, the warranty covers manufacturing defects under normal intended use during the stated warranty period. The warranty does not cover: Accidental damage. Improper installation. Electrical faults caused by external sources. Short circuits caused by incorrect wiring or use. Fire or heat damage resulting from improper use. Water or moisture damage. Normal wear and tear. Natural ageing of materials. Damage caused by modification or repair. Damage caused by unsuitable bulbs or excessive wattage. Warranty claims are subject to inspection and verification." },
-                { title: "17. Limitation of liability", text: "To the extent permitted by applicable law, the company shall not be responsible for indirect, incidental or consequential loss arising from misuse, improper installation, unauthorised modification, electrical faults outside the product's control or failure to follow the supplied safety and care instructions. Nothing in this policy is intended to exclude or restrict any consumer rights or remedies that cannot legally be excluded under applicable Indian law." },
-                { title: "18. Customer responsibility", text: "By purchasing and using the product, customers agree to follow the product's installation, electrical safety, usage and care instructions. Customers should contact us before installation if they have any questions regarding compatibility, electrical specifications or product use." },
-                { title: "19. Force majeure", text: "We shall not be liable for delays or inability to fulfil an order caused by circumstances beyond our reasonable control, including natural disasters, extreme weather, strikes, transport disruptions, government restrictions, accidents, civil disturbances or other unforeseen events." },
-                { title: "20. Policy updates", text: "We reserve the right to update these terms and policies from time to time. The version published on our website at the time of purchase will generally apply to that order, subject to applicable law." },
-                { title: "21. Customer support", text: "For questions regarding an order, delivery, product care, warranty or damage claim, customers should contact us through the official contact details provided on our website. Please retain your order confirmation/invoice as proof of purchase for any warranty or service request." }
-            ];
-
-            var termsHtml = '';
-            for (var i = 0; i < terms.length; i++) {
-                termsHtml += '<div class="terms-section"><h2>' + terms[i].title + '</h2><p>' + terms[i].text + '</p></div>';
-            }
-
-            var app = document.getElementById('app');
-            app.innerHTML = 
-                '<div class="terms-container">' +
-                    '<div class="eyebrow" style="margin-bottom: 30px; color: var(--text-soft);">Legal</div>' +
-                    '<h1>Terms & policies</h1>' +
-                    termsHtml +
-                '</div>';
-        }
-
-        window.addEventListener('load', function() {
-            var initialState = { view: 'home' };
-            history.replaceState(initialState, '', '');
-            renderView(initialState);
-            updateActiveNav(initialState);
-        });
-    </script>
+// If DOMContentLoaded fires before load (cached), still check hash
+document.addEventListener('DOMContentLoaded', ()=>{
+  // nothing extra; loader handles initial hash check
+});
+</script>
 </body>
 </html>
